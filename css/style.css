@@ -528,3 +528,34 @@ padding-top: 80px;
   .skills { grid-template-columns: 1fr; }
   .character-card { width: 100%; max-width: 350px; }
 }
+
+/* ============================================================
+   NAVBAR FIX
+   ============================================================ */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  flex-wrap: nowrap;
+}
+
+.navbar-links a {
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar-links {
+    gap: 4px;
+  }
+
+  .navbar-links a {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
