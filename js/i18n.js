@@ -216,17 +216,12 @@ nav_settings: 'Settings',
   nav_settings: '...',
 
   // Hero
-  hero_badge: '...',
-  hero_title_1: '...',
-  hero_title_2: '...',
-
-      // Hero
-      hero_badge: '\u0E10\u0E32\u0E19\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E41\u0E1F\u0E19\u0E40\u0E21\u0E14',
-      hero_title_1: 'The Seven Deadly Sins',
-      hero_title_2: 'ORIGIN',
-      hero_subtitle: '\u0E15\u0E31\u0E27\u0E25\u0E30\u0E04\u0E23 \u2022 \u0E08\u0E31\u0E14\u0E2D\u0E31\u0E19\u0E14\u0E31\u0E1A \u2022 \u0E2D\u0E35\u0E40\u0E27\u0E19\u0E15\u0E4C \u2022 \u0E44\u0E01\u0E14\u0E4C',
-      hero_browse: '\u0E14\u0E39\u0E15\u0E31\u0E27\u0E25\u0E30\u0E04\u0E23',
-      hero_tierlist: '\u0E08\u0E31\u0E14\u0E2D\u0E31\u0E19\u0E14\u0E31\u0E1A',
+hero_badge: '\u0E10\u0E32\u0E19\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E41\u0E1F\u0E19\u0E40\u0E21\u0E14',
+hero_title_1: 'The Seven Deadly Sins',
+hero_title_2: 'ORIGIN',
+hero_subtitle: '\u0E15\u0E31\u0E27\u0E25\u0E30\u0E04\u0E23 \u2022 \u0E08\u0E31\u0E14\u0E2D\u0E31\u0E19\u0E14\u0E31\u0E1A \u2022 \u0E2D\u0E35\u0E40\u0E27\u0E19\u0E15\u0E4C \u2022 \u0E44\u0E01\u0E14\u0E4C',
+hero_browse: '\u0E14\u0E39\u0E15\u0E31\u0E27\u0E25\u0E30\u0E04\u0E23',
+hero_tierlist: '\u0E08\u0E31\u0E14\u0E2D\u0E31\u0E19\u0E14\u0E31\u0E1A',
 
       // Stats
       stat_characters: '\u0E15\u0E31\u0E27\u0E25\u0E30\u0E04\u0E23',
