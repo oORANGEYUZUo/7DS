@@ -12,16 +12,19 @@ var I18n = (function () {
 
   var translations = {
     en: {
-      // Navbar
-      nav_home: 'Home',
-      nav_characters: 'Characters',
-      nav_tierlist: 'Tier List',
-      nav_events: 'Events',
-      nav_admin: 'Admin',
-      nav_login: 'Login',
-      nav_logout: 'Logout',
-      nav_dashboard: 'Dashboard',
-      nav_settings: 'Settings',
+  // Navbar
+  nav_home: 'Home',
+  nav_characters: 'Characters',
+  nav_weapons: 'Weapons',
+  nav_tierlist: 'Tier List',
+  nav_events: 'Events',
+  nav_guides: 'Guides',
+  nav_admin: 'Admin',
+  nav_login: 'Login',
+  nav_logout: 'Logout',
+  nav_dashboard: 'Dashboard',
+  nav_settings: 'Settings',
+},
 
       // Hero
       hero_badge: 'Fan Database',
