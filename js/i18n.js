@@ -21,7 +21,8 @@ nav_guides: 'Guides',
 nav_admin: 'Admin',
 nav_login: 'Login',
 nav_logout: 'Logout',
-},
+nav_dashboard: 'Dashboard',
+nav_settings: 'Settings',
 
       // Hero
       hero_badge: 'Fan Database',
