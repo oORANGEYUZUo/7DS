@@ -1,18 +1,26 @@
 /* ============================================================
-   NAVBAR SYSTEM
+   NAVBAR SYSTEM (Stable Version)
+   - icon + text render once
+   - language switch
+   - auth profile menu
    ============================================================ */
 
+/* NAV MAP */
 const navMap = {
   'index.html': { icon: '🏠', key: 'nav_home' },
   'characters.html': { icon: '⚔', key: 'nav_characters' },
-  'weapons.html': { icon: '🗡', key: 'nav_weapons' },
   'tierlist.html': { icon: '🏆', key: 'nav_tierlist' },
-  'events.html': { icon: '🎉', key: 'nav_events' },
-  'guides.html': { icon: '📖', key: 'nav_guides' }
+  'events.html': { icon: '🎉', key: 'nav_events' }
 };
 
-function initNavbar() {
-  if (window._navbarInitDone) return;
+
+/* ============================================================
+   INIT NAVBAR
+   ============================================================ */
+
+function initNavbar(){
+
+  if(window._navbarInitDone) return;
   window._navbarInitDone = true;
 
   renderNavbar();
@@ -20,55 +28,80 @@ function initNavbar() {
   setupLangSwitch();
   injectAuthUI();
 
-  if (typeof I18n !== 'undefined') {
+  /* update text when language changes */
+  if(typeof I18n !== 'undefined'){
     I18n.onChange(applyNavI18n);
   }
 }
 
-function renderNavbar() {
-  document.querySelectorAll('.navbar-links > li > a').forEach(function (a) {
+
+/* ============================================================
+   RENDER NAVBAR ICON + TEXT
+   ============================================================ */
+
+function renderNavbar(){
+
+  document.querySelectorAll('.navbar-links > li > a').forEach(function(a){
+
     var href = a.getAttribute('href');
-    if (!href) return;
+    if(!href) return;
 
     var page = href.split('/').pop();
     var mapping = navMap[page];
-    if (!mapping) return;
+    if(!mapping) return;
 
     a.innerHTML = '';
 
-    var icon = document.createElement('span');
-    icon.className = 'nav-icon';
+    var icon = document.createElement("span");
+    icon.className = "nav-icon";
     icon.innerHTML = mapping.icon;
 
-    var text = document.createElement('span');
-    text.className = 'nav-text';
+    var text = document.createElement("span");
+    text.className = "nav-text";
     text.textContent = getLabel(mapping.key);
 
     a.appendChild(icon);
     a.appendChild(document.createTextNode(' '));
     a.appendChild(text);
+
   });
+
 }
 
-function applyNavI18n() {
-  document.querySelectorAll('.navbar-links > li > a').forEach(function (a) {
+
+/* ============================================================
+   LANGUAGE UPDATE
+   ============================================================ */
+
+function applyNavI18n(){
+
+  document.querySelectorAll('.navbar-links > li > a').forEach(function(a){
+
     var href = a.getAttribute('href');
-    if (!href) return;
+    if(!href) return;
 
     var page = href.split('/').pop();
     var mapping = navMap[page];
-    if (!mapping) return;
+    if(!mapping) return;
 
     var text = a.querySelector('.nav-text');
-    if (text) {
+    if(text){
       text.textContent = getLabel(mapping.key);
     }
+
   });
+
 }
 
-function setupLangSwitch() {
+
+/* ============================================================
+   LANGUAGE SWITCH BUTTON
+   ============================================================ */
+
+function setupLangSwitch(){
+
   var navLinks = document.getElementById('navLinks');
-  if (!navLinks || navLinks.querySelector('.nav-lang-switcher')) return;
+  if(!navLinks || navLinks.querySelector('.nav-lang-switcher')) return;
 
   var li = document.createElement('li');
   li.className = 'nav-lang-switcher';
@@ -76,45 +109,63 @@ function setupLangSwitch() {
   var current = getLang();
 
   li.innerHTML =
-    '<div class="lang-switch-group">' +
-      '<button class="lang-btn ' + (current === 'en' ? 'active' : '') + '" data-lang="en">EN</button>' +
-      '<span class="lang-divider">|</span>' +
-      '<button class="lang-btn ' + (current === 'th' ? 'active' : '') + '" data-lang="th">TH</button>' +
+    '<div class="lang-switch-group">'+
+    '<button class="lang-btn '+(current==='en'?'active':'')+'" data-lang="en">EN</button>'+
+    '<span class="lang-divider">|</span>'+
+    '<button class="lang-btn '+(current==='th'?'active':'')+'" data-lang="th">TH</button>'+
     '</div>';
 
   navLinks.appendChild(li);
 
-  li.querySelectorAll('.lang-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
+  li.querySelectorAll('.lang-btn').forEach(function(btn){
+
+    btn.addEventListener('click',function(){
+
       var lang = btn.dataset.lang;
 
-      if (typeof I18n !== 'undefined') {
+      if(typeof I18n !== 'undefined'){
         I18n.setLang(lang);
       }
 
-      li.querySelectorAll('.lang-btn').forEach(function (b) {
-        b.classList.toggle('active', b.dataset.lang === lang);
+      li.querySelectorAll('.lang-btn').forEach(b=>{
+        b.classList.toggle('active',b.dataset.lang===lang);
       });
 
       applyNavI18n();
+
     });
+
   });
+
 }
 
-function setupHamburger() {
+
+/* ============================================================
+   HAMBURGER MENU
+   ============================================================ */
+
+function setupHamburger(){
+
   var ham = document.getElementById('navHam');
   var links = document.getElementById('navLinks');
 
-  if (ham && links) {
-    ham.addEventListener('click', function () {
+  if(ham && links){
+    ham.addEventListener('click',function(){
       links.classList.toggle('open');
     });
   }
+
 }
 
-async function injectAuthUI() {
+
+/* ============================================================
+   AUTH MENU
+   ============================================================ */
+
+async function injectAuthUI(){
+
   var navLinks = document.getElementById('navLinks');
-  if (!navLinks || navLinks.querySelector('.nav-auth-item')) return;
+  if(!navLinks || navLinks.querySelector('.nav-auth-item')) return;
 
   var li = document.createElement('li');
   li.className = 'nav-auth-item';
@@ -122,35 +173,39 @@ async function injectAuthUI() {
   var logged = false;
   var email = '';
 
-  if (typeof Auth !== 'undefined') {
-    try {
+  if(typeof Auth !== 'undefined'){
+    try{
       logged = await Auth.isLoggedIn();
 
-      if (logged && typeof SupaDB !== 'undefined' && SupaDB.getSession) {
+      if(logged && typeof SupaDB !== 'undefined'){
         var session = await SupaDB.getSession();
-        if (session && session.user) {
+        if(session && session.user){
           email = session.user.email || '';
         }
       }
-    } catch (e) {}
+
+    }catch(e){}
   }
 
-  if (logged) {
+  if(logged){
+
     var initial = email ? email.charAt(0).toUpperCase() : 'A';
 
     li.innerHTML =
-      '<div class="nav-profile-wrapper">' +
-        '<button class="nav-profile-avatar" id="profileAvatarBtn">' + initial + '</button>' +
-        '<div class="nav-profile-menu" id="profileMenu">' +
-          '<a href="admin.html" class="profile-menu-item">📊 Admin</a>' +
-          '<a href="characters.html" class="profile-menu-item">⚔ Characters</a>' +
-          '<a href="weapons.html" class="profile-menu-item">🗡 Weapons</a>' +
-          '<a href="tierlist.html" class="profile-menu-item">🏆 Tier List</a>' +
-          '<a href="events.html" class="profile-menu-item">🎉 Events</a>' +
-          '<a href="guides.html" class="profile-menu-item">📖 Guides</a>' +
-          '<div class="profile-menu-divider"></div>' +
-          '<button class="profile-menu-item logout-item" onclick="Auth.logout()">Logout</button>' +
-        '</div>' +
+      '<div class="nav-profile-wrapper">'+
+      '<button class="nav-profile-avatar" id="profileAvatarBtn">'+initial+'</button>'+
+      '<div class="nav-profile-menu" id="profileMenu">'+
+
+      '<a href="admin.html" class="profile-menu-item">📊 Dashboard</a>'+
+      '<a href="characters.html" class="profile-menu-item">⚔ Characters</a>'+
+      '<a href="tierlist.html" class="profile-menu-item">🏆 Tier List</a>'+
+      '<a href="events.html" class="profile-menu-item">🎉 Events</a>'+
+
+      '<div class="profile-menu-divider"></div>'+
+
+      '<button class="profile-menu-item logout-item" onclick="Auth.logout()">Logout</button>'+
+
+      '</div>'+
       '</div>';
 
     navLinks.appendChild(li);
@@ -158,42 +213,67 @@ async function injectAuthUI() {
     var avatar = document.getElementById('profileAvatarBtn');
     var menu = document.getElementById('profileMenu');
 
-    avatar.addEventListener('click', function (e) {
+    avatar.addEventListener('click',function(e){
+
       e.stopPropagation();
       menu.classList.toggle('open');
+
     });
 
-    document.addEventListener('click', function (e) {
-      if (!menu.contains(e.target) && e.target !== avatar) {
+    document.addEventListener('click',function(e){
+
+      if(!menu.contains(e.target) && e.target!==avatar){
         menu.classList.remove('open');
       }
+
     });
-  } else {
+
+  }
+  else{
+
     li.innerHTML =
-      '<a href="login.html" class="nav-login-btn">' +
-        '<span class="nav-login-icon">🔐</span> Login' +
+      '<a href="login.html" class="nav-login-btn">'+
+      '<span class="nav-login-icon">🔐</span> Login'+
       '</a>';
 
     navLinks.appendChild(li);
+
   }
+
 }
 
-function getLabel(key) {
-  if (typeof I18n !== 'undefined') {
+
+/* ============================================================
+   UTIL
+   ============================================================ */
+
+function getLabel(key){
+
+  if(typeof I18n !== 'undefined'){
     return I18n.t(key).toUpperCase();
   }
+
   return key;
+
 }
 
-function getLang() {
-  if (typeof I18n !== 'undefined') {
+function getLang(){
+
+  if(typeof I18n !== 'undefined'){
     return I18n.getLang();
   }
+
   return 'en';
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNavbar);
-} else {
+
+/* ============================================================
+   START
+   ============================================================ */
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded',initNavbar);
+}
+else{
   initNavbar();
 }
