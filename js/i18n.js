@@ -24,6 +24,7 @@ var I18n = (function () {
   nav_logout: 'Logout',
   nav_dashboard: 'Dashboard',
   nav_settings: 'Settings',
+},
 
       // Hero
       hero_badge: 'Fan Database',
@@ -216,6 +217,7 @@ var I18n = (function () {
   nav_logout: '\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E23\u0E30\u0E1A\u0E1A',
   nav_dashboard: '\u0E41\u0E14\u0E0A\u0E1A\u0E2D\u0E23\u0E4C\u0E14',
   nav_settings: '\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32',
+},
 
       // Hero
       hero_badge: '\u0E10\u0E32\u0E19\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E41\u0E1F\u0E19\u0E40\u0E21\u0E14',
